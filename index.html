@@ -563,23 +563,39 @@
 
     </script>
 
-    <script>
+   <script>
 // Fungsi untuk mendeteksi perangkat mobile
 function isMobileDevice() {
     return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 }
 
+// Fungsi untuk mengecek status kunci
+function isSiteLocked() {
+    return localStorage.getItem('siteLocked') === 'true';
+}
+
 // Fungsi untuk mengunci situs web saat diakses melalui perangkat mobile
 function lockSiteForMobile() {
-    if (isMobileDevice()) {
+    if (isMobileDevice() && !isSiteLocked()) {
         // Gantilah pesan di bawah ini sesuai dengan pesan yang ingin Anda tampilkan
-        document.body.innerHTML = "<h1>Maaf, situs ini hanya dapat diakses melalui perangkat desktop.</h1>";
+        document.body.innerHTML = `
+            <h1>Maaf, situs ini hanya dapat diakses melalui perangkat desktop.</h1>
+            <button id="unlockButton">Buka Kunci</button>
+        `;
+        document.getElementById('unlockButton').addEventListener('click', unlockSite);
     }
+}
+
+// Fungsi untuk membuka kunci situs
+function unlockSite() {
+    localStorage.setItem('siteLocked', 'false');
+    window.location.reload(); // Refresh halaman
 }
 
 // Panggil fungsi untuk mengunci situs saat halaman dimuat
 lockSiteForMobile();
 </script>
+
 
 </body>
 
