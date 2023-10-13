@@ -563,6 +563,23 @@
 
     </script>
 
+    <script>
+// Fungsi untuk mendeteksi perangkat mobile
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+}
+
+// Fungsi untuk mengunci situs web saat diakses melalui perangkat mobile
+function lockSiteForMobile() {
+    if (isMobileDevice()) {
+        // Gantilah pesan di bawah ini sesuai dengan pesan yang ingin Anda tampilkan
+        document.body.innerHTML = "<h1>Maaf, situs ini hanya dapat diakses melalui perangkat desktop.</h1>";
+    }
+}
+
+// Panggil fungsi untuk mengunci situs saat halaman dimuat
+lockSiteForMobile();
+</script>
 
 </body>
 
